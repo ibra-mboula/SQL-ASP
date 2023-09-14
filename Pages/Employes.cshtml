@@ -1,0 +1,165 @@
+﻿@page
+@model grhASP.EmployesModel
+
+@{
+}
+
+<!-- j'affiche la list des employés' -->
+<h2>Liste des employés</h2>
+
+<table class="table">
+    <thead> <!-- pour afficher les entete de mes colones -->
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Date de naissance</th>
+            <th>Adresse</th>
+            <th>Email</th>
+            <th>Date d'embauche</th>
+            <th>ID Département</th>
+            <th>ID Poste</th>
+            <th>Salaire</th>
+            <th>Avantage santé</th>
+            <th>Avantage retraite</th>
+            <th>Sexe</th>
+            <th>Numéro de sécurité sociale</th>
+            <th>Téléphone</th>
+            <th>Dernière modification</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+
+                    <!-- Ici je cree un new employé -->
+                    <h2>Ajouter un nouvel employé</h2>
+
+                    <form method="post" asp-page-handler="Add">
+
+                        <div class="form-group">
+                            <label for="nom">Nom :</label>
+                            <input type="text" class="form-control" id="nom" name="Nom" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prenom">Prénom :</label>
+                            <input type="text" class="form-control" id="prenom" name="Prenom" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dateNaissance">Date de naissance :</label>
+                            <input type="date" class="form-control" id="dateNaissance" name="DateNaissance" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adresse">Adresse :</label>
+                            <input type="text" class="form-control" id="adresse" name="Adresse" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email :</label>
+                            <input type="email" class="form-control" id="email" name="Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dateEmbauche">Date d'embauche :</label>
+                            <input type="date" class="form-control" id="dateEmbauche" name="DateEmbauche" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idDepartement">ID Département :</label>
+                            <input type="text" class="form-control" id="idDepartement" name="ID_Departement" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idPoste">ID Poste :</label>
+                            <input type="text" class="form-control" id="idPoste" name="ID_Poste" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="salaire">Salaire :</label>
+                            <input type="number" class="form-control" id="salaire" name="Salaire" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="avantageSante">Avantage santé :</label>
+                            <input type="text" class="form-control" id="avantageSante" name="AvantageSante" required>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label for="avantageRetraite">Avantage retraite :</label>
+                            <input type="text" class="form-control" id="avantageRetraite" name="AvantageRetraite" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="sexe">Sexe :</label>
+                                 <!-- les 2 possibilités sont M ou F -->
+                            <select class="form-control" id="sexe" name="Sexe" required>
+                                <option value="M">Masculin</option>
+                                <option value="F">Féminin</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="numeroSecuSociale">Numéro de sécurité sociale :</label>
+                            <input type="text" class="form-control" id="numeroSecuSociale" name="NumeroSecuSociale" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="telephone">Téléphone :</label>
+                            <input type="text" class="form-control" id="telephone" name="Telephone" required>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+
+                    </form>
+
+
+    <tbody>
+        @foreach (var employe in Model.listEmploye) //on va parcourrir les employé ajouté au model pour les afficher
+        {
+            <tr>
+                <td>@employe.ID</td>  <!--  le arobase c'est pour delimiter le code c# du code html'  -->
+                <td>@employe.Nom</td>
+                <td>@employe.Prenom</td>
+                <td>@employe.DateNaissance</td>
+                <td>@employe.Adresse</td>
+                <td>@employe.Email</td>
+                <td>@employe.DateEmbauche</td>
+                <td>@employe.ID_Departement</td>
+                <td>@employe.ID_Poste</td>
+                <td>@employe.Salaire</td>
+                <td>@employe.AvantageSante</td>
+                <td>@employe.AvantageRetraite</td>
+                <td>@employe.Sexe</td>
+                <td>@employe.NumeroSecuSociale</td>
+                <td>@employe.Telephone</td>
+                <td>@employe.Derniere_Modif</td>
+                <td>
+
+                    
+                    <a asp-page="./Edit" asp-route-id="@employe.ID">Modifier</a> |
+
+                    <!-- Pour delete un employé -->
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@employe.ID" onsubmit="return confirm(' supprimer cet employé ?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+
+                       
+
+
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
